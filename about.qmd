@@ -1,0 +1,10 @@
+---
+title: "About"
+---
+
+## Background
+where you grew up or studied, and what you worked on before MDS.
+## Why data science 
+what brought you to the program.
+## Outside of data science
+hobbies, sports, music, food, what you do on a weekend

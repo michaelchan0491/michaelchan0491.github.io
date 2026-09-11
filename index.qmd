@@ -1,0 +1,16 @@
+---
+title: "Michael Chan"
+about:
+  template: jolla
+  image: images/profile_picture.jpeg
+---
+
+This is Croissant. And yes, he loves butter.
+I was born in Winnipeg, Manitoba, Canada, where I completed my Bachelor of Science in Biochemistry at the University of Manitoba. 
+I spent the last 10 years working at the National Microbiology Laboratory studying Ebola. 
+I am hoping that this program will help me advance my career into the world of biotechnology. 
+
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

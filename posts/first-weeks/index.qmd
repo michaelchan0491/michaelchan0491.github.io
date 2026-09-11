@@ -1,0 +1,6 @@
+---
+title: "My first weeks in MDS"
+author: "Michael Chan"
+date: 2026-09-11
+---
+![Orientation day on campus.](orientation.jpg)
