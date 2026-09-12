@@ -25,13 +25,27 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "where you grew up or studied, and what you worked on before MDS. ## Why data science what brought you to the program. ## Outside of data science hobbies, sports, music, food, what you do on a weekend"
+    "text": "I grew up in Winnipeg, Manitoba. Before starting the MDS program, I worked at the National Microbiology Laboratory for ten years, where my research focused on the development of diagnostics and countermeasures for high-consequence viruses such as Ebola."
   },
   {
     "objectID": "about.html#background",
     "href": "about.html#background",
     "title": "About",
     "section": "",
-    "text": "where you grew up or studied, and what you worked on before MDS. ## Why data science what brought you to the program. ## Outside of data science hobbies, sports, music, food, what you do on a weekend"
+    "text": "I grew up in Winnipeg, Manitoba. Before starting the MDS program, I worked at the National Microbiology Laboratory for ten years, where my research focused on the development of diagnostics and countermeasures for high-consequence viruses such as Ebola."
+  },
+  {
+    "objectID": "about.html#why-data-science",
+    "href": "about.html#why-data-science",
+    "title": "About",
+    "section": "Why data science",
+    "text": "Why data science\nThe new frontier of the life sciences lies in harnessing the power of data science to drive scientific discovery and innovation. I am joining the MDS program to build on my scientific background and contribute meaningfully to this evolving field!"
+  },
+  {
+    "objectID": "about.html#outside-of-data-science",
+    "href": "about.html#outside-of-data-science",
+    "title": "About",
+    "section": "Outside of data science",
+    "text": "Outside of data science\nCooking is one of my greatest passions. I love exploring new techniques and flavors in my own kitchen. I’m also dedicated to weightlifting and continually refining my technique and approach to fitness."
   }
 ]
