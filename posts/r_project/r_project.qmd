@@ -3,3 +3,21 @@ title: "r_project"
 author: "Michael Chan"
 date: 2026-09-21
 ---
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+
+yo_mama <- ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title = "Penguin Bill Length vs. Body Mass by Species",
+    x = "Body Mass (g)",
+    y = "Bill Length (mm)",
+    color = "Species"
+  ) +
+  theme_minimal()
+
+yo_mama
+```
+

@@ -14,6 +14,13 @@
     "text": "This is Croissant. And yes, he loves butter.\nI was born in Winnipeg, Manitoba, Canada, where I completed my Bachelor of Science in Biochemistry at the University of Manitoba. I spent the last 10 years working at the National Microbiology Laboratory studying ebola. I am hoping that this program will help me advance my career into the world of biotechnology."
   },
   {
+    "objectID": "posts/r_project/r_project.html",
+    "href": "posts/r_project/r_project.html",
+    "title": "r_project",
+    "section": "",
+    "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.1     ✔ readr     2.2.0\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.3     ✔ tibble    3.3.1\n✔ lubridate 1.9.5     ✔ tidyr     1.3.2\n✔ purrr     1.2.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(palmerpenguins)\n\n\nAttaching package: 'palmerpenguins'\n\nThe following objects are masked from 'package:datasets':\n\n    penguins, penguins_raw\n\nyo_mama &lt;- ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = species)) +\n  geom_point(alpha = 0.7, size = 2) +\n  labs(\n    title = \"Penguin Bill Length vs. Body Mass by Species\",\n    x = \"Body Mass (g)\",\n    y = \"Bill Length (mm)\",\n    color = \"Species\"\n  ) +\n  theme_minimal()\n\nyo_mama\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`)."
+  },
+  {
     "objectID": "posts/first-weeks/index.html",
     "href": "posts/first-weeks/index.html",
     "title": "My first weeks in MDS",
