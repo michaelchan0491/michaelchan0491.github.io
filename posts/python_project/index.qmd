@@ -1,0 +1,9 @@
+---
+title: "python_project"
+author: "Michael Chan"
+date: 2026-09-21
+---
+
+```{python}
+
+```
