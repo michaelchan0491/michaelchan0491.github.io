@@ -5,10 +5,34 @@ date: 2026-09-21
 ---
 
 ```{r}
+# The libraries needed to process this code
 library(tidyverse)
 library(palmerpenguins)
+```
 
-yo_mama <- ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+```{r}
+# Process the data
+penguins_clean <- penguins |>
+  drop_na(body_mass_g, bill_length_mm) |>          # remove the 2 penguins with missing measurements
+  select(species, island, sex, body_mass_g, bill_length_mm) |>
+  mutate(body_mass_kg = body_mass_g / 1000)        # add a column in kg
+
+# Summary by species
+penguin_summary <- penguins_clean |>
+  group_by(species) |>
+  summarise(
+    n = n(),
+    mean_mass_g = mean(body_mass_g),
+    mean_bill_mm = mean(bill_length_mm),
+    .groups = "drop"
+  ) |>
+  arrange(desc(mean_mass_g))
+
+penguin_summary
+
+# Plot the processed data
+yo_mama <- ggplot(penguins_clean,
+                  aes(x = body_mass_g, y = bill_length_mm, color = species)) +
   geom_point(alpha = 0.7, size = 2) +
   labs(
     title = "Penguin Bill Length vs. Body Mass by Species",
@@ -20,4 +44,5 @@ yo_mama <- ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = spe
 
 yo_mama
 ```
+
 
