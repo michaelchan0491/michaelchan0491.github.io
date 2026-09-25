@@ -1,17 +1,36 @@
 ---
-title: "python_project"
+title: "Python Project"
 author: "Michael Chan"
 date: 2026-09-21
 ---
 
+## Packages
+
 ```{python}
+#| message: false
+#| warning: false
+
+from pathlib import Path
+
 import pandas as pd
 import matplotlib.pyplot as plt
+```
 
-# --- Load ---
-# Use the full file, not penguins_clean.csv, which only kept two measurements
+## Data
+
+The data come from the Palmer Station Antarctica LTER and were collected by Gorman et al. (2014). They are distributed in the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) package, from which the CSV file used here was obtained.
+
+The data are released under the CC0 1.0 Universal public domain dedication, which waives all copyright and related rights, including the right to distribute. The dedication states that the data may be reused and redistributed "in any form whatsoever and for any purposes" ([CC0 1.0 Universal](https://allisonhorst.github.io/palmerpenguins/LICENSE.html)).
+
+```{python}
 penguins = pd.read_csv("data/penguins.csv")
+```
 
+## Processing the Data
+
+Penguins with missing values in any of the four body measurements were removed before analysis.
+
+```{python}
 measurements = {
     "bill_length_mm": "Bill Length (mm)",
     "bill_depth_mm": "Bill Depth (mm)",
@@ -19,19 +38,48 @@ measurements = {
     "body_mass_g": "Body Mass (g)",
 }
 
-# --- Process ---
 penguins_clean = penguins.dropna(subset=list(measurements))
+```
+
+## Summary by Species
+
+The mean, standard deviation and sample size of each measurement were calculated for each species.
+
+```{python}
+#| label: tbl-penguin-summary
+#| tbl-cap: "Mean ± standard deviation of each measurement by species."
 
 summary = (
     penguins_clean
     .groupby("species")[list(measurements)]
     .agg(["mean", "std", "count"])
 )
-print(summary.round(1))
 
-# --- Plot: one panel per measurement, one bar per species ---
+# Build a readable table: one "mean ± sd" column per measurement
+table = pd.DataFrame(index=summary.index)
+table["n"] = summary[("body_mass_g", "count")]
+
+for col, label in measurements.items():
+    table[label] = (
+        summary[(col, "mean")].round(1).astype(str)
+        + " ± "
+        + summary[(col, "std")].round(1).astype(str)
+    )
+
+table.index.name = "Species"
+table
+```
+
+## Visualizing the Summary
+
+@fig-measurements compares the mean of each measurement across species.
+
+```{python}
+#| label: fig-measurements
+#| fig-cap: "Mean penguin measurements by species. Error bars show ±1 standard deviation."
+
 species = summary.index
-colors = ["#F8766D", "#00BA38", "#619CFF"]   # same default colours as ggplot
+colors = ["#F8766D", "#00BA38", "#619CFF"]   # ggplot2's default colours
 
 fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
@@ -39,13 +87,15 @@ for ax, (col, label) in zip(axes.flat, measurements.items()):
     means = summary[(col, "mean")]
     sds = summary[(col, "std")]
     bars = ax.bar(species, means, yerr=sds, capsize=5, color=colors, alpha=0.85)
-    ax.bar_label(bars, fmt="%.1f", padding=3, label_type="center", color="white")
+    ax.bar_label(bars, fmt="%.1f", label_type="center", color="white")
     ax.set_title(label)
     ax.set_ylabel(label)
     ax.spines[["top", "right"]].set_visible(False)
 
-fig.suptitle("Mean Penguin Measurements by Species (± 1 SD)", fontsize=14)
 fig.tight_layout()
-fig.savefig("data/penguin_measurements_by_species.png", dpi=300)
+
+fig_dir = Path("results/figures")
+fig_dir.mkdir(parents=True, exist_ok=True)
+fig.savefig(fig_dir / "penguin_measurements_by_species.png", dpi=300)
 plt.show()
 ```
