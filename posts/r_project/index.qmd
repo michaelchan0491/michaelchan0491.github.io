@@ -1,0 +1,88 @@
+---
+title: "R Project"
+author: "Michael Chan"
+date: 2026-09-21
+---
+
+## The Packages Needed
+```{r}
+#| message: false
+#| warning: false
+# The libraries needed to process this code
+library(tidyverse)
+library(palmerpenguins)
+```
+
+## Data
+My data can be found in the palmerpenguins package
+
+More details of the data can be found here: 
+Data: [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/),
+Palmer Station Antarctica LTER.
+
+The data are released under the CC0 1.0 Universal public domain dedication, which waives all copyright and related rights, including the right to distribute. The dedication states that the data may be reused and redistributed "in any form whatsoever and for any purposes" ([CC0 1.0 Universal](https://allisonhorst.github.io/palmerpenguins/LICENSE.html)).
+
+## Process the Data
+The data was first cleaned up so that it was useful for the analysis. 
+```{r}
+# Process the data
+penguins_clean <- penguins |>
+  drop_na(body_mass_g, bill_length_mm) |>          # remove the 2 penguins with missing measurements
+  select(species, island, sex, body_mass_g, bill_length_mm) |>
+  mutate(body_mass_kg = body_mass_g / 1000)        # add a column in kg
+```
+
+
+## Plot the Processed Data
+From the processed data, can plot the individual events of the data to get a plot. 
+```{r}
+#| label: fig-bill-vs-mass
+#| fig-cap: "Bill length vs. body mass for Adelie, Chinstrap, and Gentoo penguins."
+
+# Plot the processed data
+bill_mass_plot <- ggplot(penguins_clean,
+                         aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    x = "Body Mass (g)",
+    y = "Bill Length (mm)",
+    color = "Species"
+  ) +
+  theme_minimal()
+
+bill_mass_plot
+```
+
+## Summary by Species
+
+I grouped the penguins by species and calculated the sample size, mean body
+mass, and mean bill length for each.
+
+```{r}
+#| label: tbl-penguin-summary
+#| tbl-cap: "Sample size, mean body mass, and mean bill length by species."
+
+# Summary by species
+penguin_summary <- penguins_clean |>
+  group_by(species) |>
+  summarise(
+    n = n(),
+    mean_mass_kg = mean(body_mass_kg),
+    sd_mass_kg = sd(body_mass_kg),
+    mean_bill_mm = mean(bill_length_mm),
+    sd_bill_mm = sd(bill_length_mm),
+    .groups = "drop"
+  ) |>
+  arrange(desc(mean_mass_kg))
+
+# Display as a formatted table
+knitr::kable(
+  penguin_summary,
+  col.names = c("Species", "n",
+                "Mean mass (kg)", "SD mass (kg)",
+                "Mean bill (mm)", "SD bill (mm)"),
+  digits = c(0, 0, 2, 2, 1, 1),
+  align = c("l", "r", "r", "r", "r", "r")
+)
+```
+
